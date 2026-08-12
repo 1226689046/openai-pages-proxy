@@ -20,6 +20,10 @@ export async function onRequest(context) {
   headers.delete("host");
   headers.delete("x-proxy-token");
 
+  if (context.data.requestId) {
+    headers.set("x-request-id", context.data.requestId);
+  }
+
   return fetch(new Request(target, {
     method: request.method,
     headers,
